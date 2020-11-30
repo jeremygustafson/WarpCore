@@ -23,6 +23,7 @@ make flash monitor -j32
 ----------------------------------------
 
 **To resolve:**
+
 Download and install the [Arduino IDE](https://www.arduino.cc/en/software), as we’ll need to borrow some libraries from it.
 
 Follow steps 1-5 from this article: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/ , also included below:
@@ -52,6 +53,7 @@ Make sure this file is present: `~/esp/warp_core/components/arduino/component.mk
 ----------------------------------------
 
 **To resolve:**
+
 ```
 mkdir ~/esp/warp_core/components/arduino/cores
 cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/cores/esp32 ~/esp/warp_core/components/arduino/cores
@@ -70,6 +72,7 @@ In file included from ~/esp/warp_core/components/arduino/cores/esp32/wiring_priv
 ----------------------------------------
 
 **To resolve:**
+
 ```
 mkdir ~/esp/warp_core/components/arduino/variants
 cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/variants/esp32 ~/esp/warp_core/components/arduino/variants
@@ -87,6 +90,7 @@ In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebSe
 ----------------------------------------
 
 **To resolve:**
+
 `vi ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncEventSource.h`
 
 ```
@@ -111,6 +115,7 @@ In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebSe
 ----------------------------------------
 
 **To resolve:**
+
 ```
 cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/libraries/WiFi ~/esp/warp_core/components/arduino/libraries
 ```
@@ -128,6 +133,7 @@ In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebSe
 ----------------------------------------
 
 **To resolve:**
+
 I think I did this:
 ```
 cd ~/esp/warp_core/components/
@@ -152,6 +158,7 @@ And then the earlier-mentioned steps in the README that modify files in that dir
 ----------------------------------------
 
 **To resolve:**
+
 ```
 rm -r ~/esp/warp_core/components/arduino/libraries/AzureIoT/*
 make clean
@@ -174,6 +181,7 @@ In file included from ~/esp/esp-idf/components/wifi_provisioning/include/wifi_pr
 ----------------------------------------
 
 **To resolve:**
+
 `vi ~/esp/esp-idf/components/protocomm/include/transports/protocomm_ble.h`
 
 ```
@@ -195,6 +203,7 @@ In file included from ~/esp/esp-idf/components/wifi_provisioning/include/wifi_pr
 ----------------------------------------
 
 **To resolve:**
+
 Manually add this fix I found from https://github.com/espressif/arduino-esp32/issues/3760 (which itself was linked from https://github.com/espressif/esp32-arduino-lib-builder/issues/10) :
 
 `vi ~/esp/warp_core/components/arduino-esp32/libraries/WiFi/src/ETH.cpp`
@@ -233,6 +242,7 @@ Make the same change in this file, too:
 ----------------------------------------
 
 **To resolve:**
+
 See also https://github.com/espressif/arduino-esp32/issues/3457
 ```
 make menuconfig
@@ -248,6 +258,7 @@ Component config -> mbedTLS -> TLS Key Exchange Methods -> [*] Enable pre-shared
 ----------------------------------------
 
 **To resolve:**
+
 This seemed to be caused by missing an extra flag when compiling mkspiffs. Be sure to use this command line:
 
 `make BUILD_CONFIG_NAME="-esp-idf" CPPFLAGS="-DSPIFFS_OBJ_META_LEN=4"`
@@ -264,6 +275,7 @@ This seemed to be caused by missing an extra flag when compiling mkspiffs. Be su
 --------------------
 
 **To resolve:**
+
 Reboot your computer. I couldn't find any other way around it.
 
 
@@ -334,6 +346,7 @@ Save, then also double check this value is 4096: `make menuconfig` > "SPIffs Exa
 --------------------
 
 **To resolve:**
+
 ```
 ~/esp/warp_core_audio $ ./mkspiffs -u ~/spiffs_unpacked_dir build/spiffs_image.img
 ```
@@ -347,6 +360,7 @@ Save, then also double check this value is 4096: `make menuconfig` > "SPIffs Exa
 --------------------
 
 **To resolve:**
+
 As a first step, add this code block to the bottom of ~/esp/warp_core_audio/main/AudioHandler.cpp:
 
 ```
@@ -396,6 +410,7 @@ Then `make flash monitor` and examine the output.
 --------------------
 
 **To resolve:**
+
 Edit ~/esp/warp_core_audio/main/main.cpp and uncomment this debug section:
 ```
 		// Uncomment this section for debug:
@@ -434,6 +449,7 @@ E (1621) BT-Audio: initBtAudio enable controller failed: 258,
 --------------------
 
 **To resolve:**
+
 Error code 258 translates to hex 0x102, which according to this page:
 https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/error-codes.html
 is "ESP_ERR_INVALID_ARG (0x102): Invalid argument"
