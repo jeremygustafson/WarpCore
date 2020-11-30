@@ -501,3 +501,4 @@ A few ideas I had for future improvements include:
 - fixing what might be a bug where setting a custom color disables the sound effects
 - upgrading code to work with the current ESP-IDF
 - upgrading code to work with the newer esp32_digital_led_lib
+- make use of the flash module W25Q128JVSIQTR in Dan's PCB design for storing larger audio files
