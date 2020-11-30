@@ -1,0 +1,161 @@
+<html>
+    <head>
+        <meta charset="ASCII"> 
+        <title>Warp Core Control</title>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />-->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/lcars.min.css" />
+        <style>
+            input[type=range].red::-webkit-slider-thumb {
+                background-color: red;
+            }
+            input[type=range].green::-webkit-slider-thumb {
+                background-color: green;
+            }
+            input[type=range].blue::-webkit-slider-thumb {
+                background-color: blue;
+            }
+			
+			button {
+				cursor: pointer;
+			}
+
+            div#colour-display {
+                width: 100%;
+                height: 30px;
+                background-color: black;
+                margin: 10px 0;
+                border-radius: 5px;
+                border: 1px solid white;
+            }
+        </style>
+        <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+        <script src="js/axios.min.js"></script>
+        <script>
+            var baseUri = '';
+
+            function setAnim(anim) {
+                var req = {anim:anim};
+                axios.post(baseUri + '/api/updatestate', req)
+                    .then(function (response) {
+                        console.info('Anim state changed');
+                    })
+                    .catch(function (error) {
+                        alert('Could not change animation');
+                    });
+            }
+
+            function setSolidColour() {
+                var r = +document.getElementById('red-slider').value;
+                var g = +document.getElementById('green-slider').value;
+                var b = +document.getElementById('blue-slider').value;
+
+                if (r === 0 && g === 0 && b ===0)
+                    b = 255;
+
+                var req = {anim:11,colour:true,r:r,g:g,b:b};
+                axios.post(baseUri + '/api/updatestate', req)
+                    .then(function (response) {
+                        console.info('Anim state changed');
+                    })
+                    .catch(function (error) {
+                        alert('Could not change animation');
+                    });
+            }
+
+            function setAudio(audio) {
+                var req = {sound:audio};
+                axios.post(baseUri + '/api/updatestate', req)
+                    .then(function (response) {
+                        console.info('Audio state changed');
+                    })
+                    .catch(function (error) {
+                        alert('Could not set audio level');
+                    });
+            }
+
+            function rgbChanged() {
+                var r = document.getElementById('red-slider').value;
+                var g = document.getElementById('green-slider').value;
+                var b = document.getElementById('blue-slider').value;
+                var req = {colour:true,r:+r,g:+g,b:+b};
+
+                document.getElementById('colour-display').style.backgroundColor = 'rgb('+r+','+g+','+b+')';
+                
+                axios.post(baseUri + '/api/updatestate', req)
+                    .then(function (response) {
+                        console.info('Colour state changed');
+                    })
+                    .catch(function (error) {
+                        alert('Could not change colour state');
+                    });
+            }
+
+            function clearRgb() {
+                var req = {colour:false};
+                axios.post(baseUri + '/api/updatestate', req)
+                    .then(function (response) {
+                        console.info('Colour state changed');
+                    })
+                    .catch(function (error) {
+                        alert('Could not change colour state');
+                    });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="lcars-container closed" style="width: 100%">
+						<h1 class="lcars">Main Engineering</h1>
+						<br/>
+						<h3 class="system">Warp</h3>
+						<button class="lcars lcars-left system" onClick="setAnim(0)">Idle</button>
+						<button class="lcars lcars-right info" onClick="setAnim(1)">Warp</button>
+						<br /><br />
+
+						<h3>Red Alert</h3>
+						<button class="lcars lcars-left alert" onClick="setAnim(2)">Galaxy</button>
+						<button class="lcars alert" onClick="setAnim(3)">Intrepid</button>
+						<button class="lcars lcars-right alert" onClick="setAnim(4)">CORE BREACH</button>
+
+						<h3 class="info">Sound</h3>
+						<button class="lcars lcars-left info" onClick="setAudio(true)">On</button>
+						<button class="lcars lcars-right info" onClick="setAudio(false)">Off</button>
+						<br /><br />
+
+						<h3>Rainbow</h3>
+						<button class="lcars lcars-left system" onClick="setAnim(5)">Rainbow</button>
+						<button class="lcars confirm" onClick="setAnim(6)">Rainbow Row</button>
+						<button class="lcars info" onClick="setAnim(7)">Rainbow Round</button>
+						<button class="lcars lcars-right system" onClick="setAnim(8)">Rainbow All</button>
+						<br /><br />
+
+						<h3>Animation</h3>
+						<button class="lcars lcars-left" onClick="setAnim(13)">Off</button>
+						<button class="lcars" onClick="setSolidColour()">Single Colour</button>
+						<button class="lcars" onClick="setAnim(9)">Stack</button>
+						<button class="lcars confirm" onClick="setAnim(10)">Spiral</button>
+						<button class="lcars lcars-right info" onClick="setAnim(12)">Knight Rider</button>
+						<br /><br />
+
+						<h3 class="system">Colour Control</h3>
+						Red<br />
+						<input type="range" id="red-slider" class="red" min="0" max="255" value="0" onchange="rgbChanged()"/>
+						Green<br />
+						<input type="range" id="green-slider" class="green" min="0" max="255" value="0" onchange="rgbChanged()"/>
+						Blue<br />
+						<input type="range" id="blue-slider" class="blue" min="0" max="255" value="0" onchange="rgbChanged()"/>
+						<div id="colour-display"></div>
+						<button class="lcars alert" onClick="clearRgb()">Clear</button>
+                    </div>
+                </div>
+                <div class="col-md-2 text-center">
+                    <img src="images/core.png" style="max-width: 100%; margin-top: 50px;" />
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

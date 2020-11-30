@@ -1,0 +1,297 @@
+.lcars-gray-bg {
+    background-color: rgba(34,51,85,0.467) !important;
+  }
+  .lcars-white-bg {
+    background-color: #fff !important;
+  }
+  .lcars-black-bg {
+    background-color: #000 !important;
+  }
+  .lcars-pale-canary-bg {
+    background-color: #ff9 !important;
+  }
+  .lcars-golden-tanoi-bg {
+    background-color: #fc6 !important;
+  }
+  .lcars-neon-carrot-bg {
+    background-color: #f93 !important;
+  }
+  .lcars-eggplant-bg {
+    background-color: #646 !important;
+  }
+  .lcars-lilac-bg {
+    background-color: #c9c !important;
+  }
+  .lcars-anakiwa-bg {
+    background-color: #9cf !important;
+  }
+  .lcars-mariner-bg {
+    background-color: #36c !important;
+  }
+  .lcars-bahama-blue-bg {
+    background-color: #069 !important;
+  }
+  .lcars-blue-bell-bg {
+    background-color: #99c !important;
+  }
+  .lcars-melrose-bg {
+    background-color: #99f !important;
+  }
+  .lcars-hopbush-bg {
+    background-color: #c69 !important;
+  }
+  .lcars-chestnut-rose-bg {
+    background-color: #c66 !important;
+  }
+  .lcars-orange-peel-bg {
+    background-color: #f96 !important;
+  }
+  .lcars-atomic-tangerine-bg {
+    background-color: #f90 !important;
+  }
+  .lcars-danub-bg {
+    background-color: #68c !important;
+  }
+  .lcars-indigo-bg {
+    background-color: #45b !important;
+  }
+  .lcars-lavender-purple-bg {
+    background-color: #97a !important;
+  }
+  .lcars-cosmic-bg {
+    background-color: #746 !important;
+  }
+  .lcars-red-damask-bg {
+    background-color: #d64 !important;
+  }
+  .lcars-medium-carmine-bg {
+    background-color: #a53 !important;
+  }
+  .lcars-bourbon-bg {
+    background-color: #b62 !important;
+  }
+  .lcars-sandy-brown-bg {
+    background-color: #e95 !important;
+  }
+  .lcars-periwinkle-bg {
+    background-color: #cdf !important;
+  }
+  .lcars-dodger-blue-bg {
+    background-color: #59f !important;
+  }
+  .lcars-dodger-blue-alt-bg {
+    background-color: #36f !important;
+  }
+  .lcars-blue-bg {
+    background-color: #01e !important;
+  }
+  .lcars-navy-blue-bg {
+    background-color: #008 !important;
+  }
+  .lcars-husk-bg {
+    background-color: #ba5 !important;
+  }
+  .lcars-rust-bg {
+    background-color: #b41 !important;
+  }
+  .lcars-tamarillo-bg {
+    background-color: #821 !important;
+  }
+  .lcars-gray-border {
+    border-color: rgba(34,51,85,0.467) !important;
+  }
+  .lcars-white-border {
+    border-color: #fff !important;
+  }
+  .lcars-black-border {
+    border-color: #000 !important;
+  }
+  .lcars-pale-canary-border {
+    border-color: #ff9 !important;
+  }
+  .lcars-golden-tanoi-border {
+    border-color: #fc6 !important;
+  }
+  .lcars-neon-carrot-border {
+    border-color: #f93 !important;
+  }
+  .lcars-eggplant-border {
+    border-color: #646 !important;
+  }
+  .lcars-lilac-border {
+    border-color: #c9c !important;
+  }
+  .lcars-anakiwa-border {
+    border-color: #9cf !important;
+  }
+  .lcars-mariner-border {
+    border-color: #36c !important;
+  }
+  .lcars-bahama-blue-border {
+    border-color: #069 !important;
+  }
+  .lcars-blue-bell-border {
+    border-color: #99c !important;
+  }
+  .lcars-melrose-border {
+    border-color: #99f !important;
+  }
+  .lcars-hopbush-border {
+    border-color: #c69 !important;
+  }
+  .lcars-chestnut-rose-border {
+    border-color: #c66 !important;
+  }
+  .lcars-orange-peel-border {
+    border-color: #f96 !important;
+  }
+  .lcars-atomic-tangerine-border {
+    border-color: #f90 !important;
+  }
+  .lcars-danub-border {
+    border-color: #68c !important;
+  }
+  .lcars-indigo-border {
+    border-color: #45b !important;
+  }
+  .lcars-lavender-purple-border {
+    border-color: #97a !important;
+  }
+  .lcars-cosmic-border {
+    border-color: #746 !important;
+  }
+  .lcars-red-damask-border {
+    border-color: #d64 !important;
+  }
+  .lcars-medium-carmine-border {
+    border-color: #a53 !important;
+  }
+  .lcars-bourbon-border {
+    border-color: #b62 !important;
+  }
+  .lcars-sandy-brown-border {
+    border-color: #e95 !important;
+  }
+  .lcars-periwinkle-border {
+    border-color: #cdf !important;
+  }
+  .lcars-dodger-blue-border {
+    border-color: #59f !important;
+  }
+  .lcars-dodger-blue-alt-border {
+    border-color: #36f !important;
+  }
+  .lcars-blue-border {
+    border-color: #01e !important;
+  }
+  .lcars-navy-blue-border {
+    border-color: #008 !important;
+  }
+  .lcars-husk-border {
+    border-color: #ba5 !important;
+  }
+  .lcars-rust-border {
+    border-color: #b41 !important;
+  }
+  .lcars-tamarillo-border {
+    border-color: #821 !important;
+  }
+  .lcars-gray-color {
+    color: rgba(34,51,85,0.467) !important;
+  }
+  .lcars-white-color {
+    color: #fff !important;
+  }
+  .lcars-black-color {
+    color: #000 !important;
+  }
+  .lcars-pale-canary-color {
+    color: #ff9 !important;
+  }
+  .lcars-golden-tanoi-color {
+    color: #fc6 !important;
+  }
+  .lcars-neon-carrot-color {
+    color: #f93 !important;
+  }
+  .lcars-eggplant-color {
+    color: #646 !important;
+  }
+  .lcars-lilac-color {
+    color: #c9c !important;
+  }
+  .lcars-anakiwa-color {
+    color: #9cf !important;
+  }
+  .lcars-mariner-color {
+    color: #36c !important;
+  }
+  .lcars-bahama-blue-color {
+    color: #069 !important;
+  }
+  .lcars-blue-bell-color {
+    color: #99c !important;
+  }
+  .lcars-melrose-color {
+    color: #99f !important;
+  }
+  .lcars-hopbush-color {
+    color: #c69 !important;
+  }
+  .lcars-chestnut-rose-color {
+    color: #c66 !important;
+  }
+  .lcars-orange-peel-color {
+    color: #f96 !important;
+  }
+  .lcars-atomic-tangerine-color {
+    color: #f90 !important;
+  }
+  .lcars-danub-color {
+    color: #68c !important;
+  }
+  .lcars-indigo-color {
+    color: #45b !important;
+  }
+  .lcars-lavender-purple-color {
+    color: #97a !important;
+  }
+  .lcars-cosmic-color {
+    color: #746 !important;
+  }
+  .lcars-red-damask-color {
+    color: #d64 !important;
+  }
+  .lcars-medium-carmine-color {
+    color: #a53 !important;
+  }
+  .lcars-bourbon-color {
+    color: #b62 !important;
+  }
+  .lcars-sandy-brown-color {
+    color: #e95 !important;
+  }
+  .lcars-periwinkle-color {
+    color: #cdf !important;
+  }
+  .lcars-dodger-blue-color {
+    color: #59f !important;
+  }
+  .lcars-dodger-blue-alt-color {
+    color: #36f !important;
+  }
+  .lcars-blue-color {
+    color: #01e !important;
+  }
+  .lcars-navy-blue-color {
+    color: #008 !important;
+  }
+  .lcars-husk-color {
+    color: #ba5 !important;
+  }
+  .lcars-rust-color {
+    color: #b41 !important;
+  }
+  .lcars-tamarillo-color {
+    color: #821 !important;
+  }
