@@ -261,7 +261,7 @@ Component config -> mbedTLS -> TLS Key Exchange Methods -> [*] Enable pre-shared
 
 This seemed to be caused by missing an extra flag when compiling mkspiffs. Be sure to use this command line:
 
-`make BUILD_CONFIG_NAME="-esp-idf" CPPFLAGS="-DSPIFFS_OBJ_META_LEN=4"`
+`make BUILD_CONFIG_NAME="-arduino-esp32" CPPFLAGS="-DSPIFFS_OBJ_META_LEN=4"`
 
 
 
@@ -276,7 +276,7 @@ This seemed to be caused by missing an extra flag when compiling mkspiffs. Be su
 
 **To resolve:**
 
-Reboot your computer. I couldn't find any other way around it.
+Check that your ESP32 USB is plugged in. Assuming it is, reboot your computer. I couldn't find any other way around it.
 
 
 
@@ -335,7 +335,12 @@ Uncomment the section that says "Uncomment this section for debug:"
 
 Save, then also double check this value is 4096: `make menuconfig` > "SPIffs Example Configuration  --->" > "SPIFFS Logical block size" > 4096
 
-`make flashfs monitor`
+```
+make flashfs monitor
+make flash monitor
+```
+
+Finally, cross your fingers in hopes that some of the debugging output will be useful.
 
 
 
@@ -413,15 +418,15 @@ Then `make flash monitor` and examine the output.
 
 Edit ~/esp/warp_core_audio/main/main.cpp and uncomment this debug section:
 ```
-		// Uncomment this section for debug:
-        /*
-        File root = SPIFFS.open("/");
-        File file = root.openNextFile();
-        while(file){
-                ESP_LOGI(MAIN_TAG,"FILE: %s", file.name());
-                file = root.openNextFile();
-        }
-        */
+	// Uncomment this section for debug:
+	/*
+	File root = SPIFFS.open("/");
+	File file = root.openNextFile();
+	while(file){
+		ESP_LOGI(MAIN_TAG,"FILE: %s", file.name());
+		file = root.openNextFile();
+	}
+	*/
 ```
 
 Run `make flash monitor -j32` and note the file names that show up, for instance:
@@ -435,7 +440,7 @@ I (1712) MainLoop: Debug: Playing core.wav
 E (1877) Audio: wavFile is NULL. Error code: 2 : No such file or directory
 ```
 
-Then edit the 5 file paths inside `~esp/warp_core_audio/main/AudioHandler.cpp` accordingly to match. I can't explain why, but the first time I got this to work the paths were of the form "/core.wav" and the second time they needed to be "/wav/core.wav".
+Then edit the 5 file paths inside `~/esp/warp_core_audio/main/AudioHandler.cpp` accordingly to match. I can't explain why, but the first time I got this to work the paths were of the form "/core.wav" and the second time they needed to be "/wav/core.wav".
 
 
 
