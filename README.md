@@ -1,13 +1,13 @@
 # ST:TNG Warp Core with RGB LEDs, Web GUI, Sound Effects, and Bluetooth
 
-Source and instructions for [ElmoC's ST:TNG Warp Core](https://www.thingiverse.com/thing:1656741), with RGB LEDs, web-based control, sound effects, and bluetooth, as devised by [Boogle's make](https://www.thingiverse.com/make:589779).
+Source and instructions for [ElmoC's ST:TNG Warp Core](https://www.thingiverse.com/thing:1656741), with RGB LEDs, web-based control, sound effects, and bluetooth, as devised by [Boogle's (aka Dan Clarke) Make](https://www.thingiverse.com/make:589779).
 
 Code and Printed Circuit Board (PCB) design by [Dan Clarke](https://github.com/danclarke). Instructions (and a sightly revised PCB) by [Jeremy Gustafson](https://github.com/jeremygustafson).
 
 ## Credit where credit is due
 ElmoC designed the Warp Core Thing based on the [Warp Core Table Lamp created by ThePlanetMike](https://www.thingiverse.com/thing:327114).
 
-Boogle a.k.a. Dan Clarke posted a [make](https://www.thingiverse.com/make:589779) that expanded on ElmoC's design with RGB LEDs and a web-based GUI, as well as sound effects and the ability to connect to a Bluetooth speaker. However, in his comments he noted could only offer the raw source code and PCB files, without any documentation. When I asked, Dan graciously shared his source and PCB with me, and he went far above and beyond in answering innumerable questions I sent his way while working on this project. So, to be clear: the whole electronics design and code belongs to Dan, I'm just the one documenting the process so others can also build their own RGB Warp Core.
+Boogle a.k.a. Dan Clarke posted a [Make](https://www.thingiverse.com/make:589779) that expanded on ElmoC's design with RGB LEDs and a web-based GUI, as well as sound effects and the ability to connect to a Bluetooth speaker. However, in his comments he noted could only offer the raw source code and PCB files, without any documentation. When I asked, Dan graciously shared his source and PCB with me, and he went far above and beyond in answering innumerable questions I sent his way while working on this project. So, to be clear: the whole electronics design and code belongs to Dan, I'm just the one documenting the process so others can also build their own RGB Warp Core.
 
 And finally, I owe a lot of thanks to my Dad, who went to school for electrical engineering and has all the right tools and various "stuff", and who let me take over his soldering workstation for almost a week.
 
@@ -16,7 +16,7 @@ And finally, I owe a lot of thanks to my Dad, who went to school for electrical 
 
 At the risk of sounding like a middle school teacher, I highly recommend reading through all the directions before starting.
 
-**Warning:** This is an advanced project. You will need at least a rudimentary understanding of electronics and the command-line (whether you're running on Mac, Windows, or Linux). This build involves surface-mount soldering, a complex installation process of the ESP IDF, and potentially a lot of troubleshooting of the ESP code at compilation time. Dan mentioned that he needed to perform "unspeakable hackery to make it function," and that was also my experience. There is no GUI for any of this. I don't say that to scare anyone away, just to set expectations that you might/will spend a lot of time banging your head against a wall. But it's worth it.
+**Warning: This is an advanced project.** You will need at least a rudimentary understanding of electronics and the command-line (whether you're running on Mac, Windows, or Linux). This build involves surface-mount soldering, a complex installation process of the ESP IDF, and potentially a lot of troubleshooting of the ESP code at compilation time. Dan mentioned that he needed to perform "unspeakable hackery to make it function," and that was also my experience. There is no GUI for any of this. I don't say that to scare anyone away, just to set expectations that you might/will spend a lot of time banging your head against a wall. But it's worth it.
 
 In Dan's words: "My warp core is a bit over-complicated because I wanted it to be an appliance you could just plug in and use, then unplug when done. So it uses 2(!!) ESP32s to overcome some wireless limitations and not suffer from any corruption issues like a Raspberry Pi would if you just yanked the power." 
 
@@ -31,7 +31,7 @@ Last preface: I came into both this project and my previous Stargate build as an
 
 You will need components from JLCPCB, LCSC, DigiKey, and Amazon (or another retailer). The following list does not include tools such as soldering iron, electric tape, or other miscellaneous supplies.
 
-ElmoC includes a fantastic instructions PDF for assembling your warp core, and you should follow that for the majority of your build. However the following list **replaces** all electronics-y parts from ElmoC's instructions. You will still need the physical hardware components he lists, such as screws, nuts, washer, and 1/4" threaded rod.
+ElmoC includes a fantastic PDF guide for assembling your warp core, and you should follow that for the majority of your build. However the following list **replaces** all electronics-y parts from ElmoC's instructions. You will still need the physical hardware components he lists, such as screws, nuts, washer, and 1/4" threaded rod.
 
 
 **From JLCPCB**
@@ -88,7 +88,7 @@ If you use JLCPCB's SMT assembly service (described later), they will solder the
 ### PCB
 You will need to order a custom Printed Circuit Board ("PCB") from JLCPCB or another PCB service.
 
-1. Open this link: https://easyeda.com/editor#id=54b11f66f61e4816807124ef3484aed0 (I don't want to start a religious war, but you must use a supported browser to access EasyEDA; I used Chrome)
+1. Open this link: https://easyeda.com/editor#id=54b11f66f61e4816807124ef3484aed0 (I don't want to start a religious war, but you must use a supported browser to access EasyEDA; I used Chrome). Alternatively, open this link: http://easyeda.com/jeremyrgustafson/warp-core-with-usb-headers and scroll down to "Warp Core PCB" and click "Open in Editor".
 
 2. The active tab should be "Warp Core PCB" and you should see a circuit board in the middle of your window. If you instead see an electronics diagram, look in the upper-left-ish corner of the EasyEDA window and double-click the "Warp Core PCB" item underneath the "Warp Core with USB headers" folder icon.
 
@@ -100,15 +100,15 @@ You will need to order a custom Printed Circuit Board ("PCB") from JLCPCB or ano
 
 6. In the JLCPCB order, you can leave everything default and click "Save to Cart". Or, for a few extra monetary units (about $70 when I ordered), you can have JLCPCB do most of the soldering work for you. Turn on "SMT Assembly", choose "Assemble top side," choose your quantity you want assembled, and click Confirm.
 
-6.1. To generate a BOM file, open the "Warp Core PCB" EasyEDA project and click the "BOM" button, then "Export BOM". Upload that file to the JLCPCB prompt.
+   - To generate a BOM file, open the "Warp Core PCB" EasyEDA project and click the "BOM" button, then "Export BOM". Upload that file to the JLCPCB prompt.
 
-6.2. To generate a CPL file, open the "Warp Core PCB" EasyEDA project, hover over the file folder icon in the upper left, and choose "Export Pick and Place File...". Upload that file to the JLCPCB prompt.
+   - To generate a CPL file, open the "Warp Core PCB" EasyEDA project, hover over the file folder icon in the upper left, and choose "Export Pick and Place File...". Upload that file to the JLCPCB prompt.
 
-6.3. JLCPCB won't add the headers, large capacitors, or ESP32s, you'll need to solder those yourself but they are fairly "large" compared to the surface mount stuff.
+   - JLCPCB won't add the headers, large capacitors, or ESP32s, you'll need to solder those yourself but they are fairly "large" compared to the surface mount stuff.
 
-6.4. I've spent time replacing some of the chips on the PCB with equivalent JLCPCB "basic parts" in order to minimize the "Extended components fee," and I think I got it down as low as I could. Feel free to play with it more, but just know I've already made an effort. When I ordered, I had four parts that were considered "extended parts."
+   - I've spent time replacing some of the chips on the PCB with equivalent JLCPCB "basic parts" in order to minimize the "Extended components fee," and I think I got it down as low as I could. Feel free to play with it more, but just know I've already made an effort. When I ordered, I had four parts that were considered "extended parts."
 
-In the electronics list above, I've broken it into separate lists of parts that are/aren't available for JLCPCB to solder, so you know what not to order in case you choose to go this route.
+   - In the electronics list above, I've broken it into separate lists of parts that are/aren't available for JLCPCB to solder, so you know what not to order in case you choose to go this route.
 
 7. After ordering the PCB, you can get discounted shipping for your additional parts from LCSC at checkout, as long as you're signed in on the same account.
 
@@ -119,13 +119,17 @@ When the PCB arrives, you will need to solder components onto it.
 
 This is a bit of an aside but in the interest of making this project more accessible, I think it's relevant:
 
-Unless you are a skilled solderer (I am not), I **highly** recommend paying the extra $70-or-so to have JLCPCB assemble most of the board for you. The pins on the FT232 in particular are EXTREMELY SMALL, and that also happens to be an expensive part ($3/chip, and there are two of them on the board). Dan told me he went through several FT232s before he was able to solder them correctly. For me, my first attempt on this project was soldering similarly-sized tiny pins for a micro-USB port onto Dan's original PCB design; after a couple days of effort, I'd ruined/ripped/burnt the pads on several PCBs, and then after I thought I'd finally soldered the ports correctly, I plugged it in and cried as I watched the magic smoke escape (fortunately no fire extinguishers were required). My point is: while I can be a bit of a Scrooge when it comes to spending my allowance money, in this case I think it is well worth paying the professionals and saving hours/days of frustration. Or, as my wife put it to me: how much is your time worth?
+Unless you are a skilled solderer (I am not), I **highly** recommend paying the extra $70-or-so to have JLCPCB assemble most of the board for you. The pins on the FT232 in particular are EXTREMELY SMALL, and that also happens to be an expensive part ($3/chip, and there are two of them on the board). Dan told me he went through several FT232s before he was able to solder them correctly.
+
+For me, my first attempt on this project was soldering similarly-sized tiny pins for a micro USB port onto Dan's original PCB design; after a couple days of effort, I'd ruined/ripped/burnt the pads on several PCBs, and then after I thought I'd finally soldered the ports correctly, I plugged it in and cried as I watched the magic smoke escape. (This is what prompted me to redesign that portion of the board to use headers attached to a pre-made micro USB breakout board, rather than needing to solder the micro USB port myself.)
+
+My point is: while I can be a bit of a Scrooge when it comes to spending my allowance money, in this case I think it is well worth paying the professionals and saving hours/days of frustration. Or, as my wife put it to me: how much is your time worth?
 
 Assuming you have JLCPCB assemble the boards for you, you will still need to solder on the following components:
 
 - 2x ESP32 - my Dad suggested to me to start in each of the corners to somewhat "lock" the chip in place, before soldering the sides
 - 5x 470uF capacitors
-- wires leading from PWR, and LEDs 1-5 - use 20 AWG solid core for the 5V lines, and then either the solid core or stranded for the ground and data connections
+- wires leading from PWR, and LEDs 1-5 - use 20 AWG solid-core for the 5V lines, and then either the solid-core or stranded for the ground and data connections
 - pins onto the audio board and 2x USB boards (each board ships with it's own pins, so you don't have to buy those separately)
 - either solder headers for the audio and USB boards onto the PCB and then insert the boards by their pins, or solder the USB and audio breakout boards' pins directly into the PCB.
 
@@ -142,33 +146,33 @@ Refer to ElmoC's excellent PDF guide for a list of what you need to print, with 
 2. Use Dan's LightShelf.stl included in this download, which is designed for the LED light strips, instead of ElmoC's (which is designed for standard blue LEDs)
 
 3. Dan's PCB design includes an additional set of light rings (for a total of four light ring sections, plus the central chamber). If you want a shorter warp core, you can skip this additional section, though you might need to edit the code a little bit. If you choose to keep the fourth light section (as I've done), you will need to 3D print an **additional**:
-- LightRing.stl x5
-- LightShelf.stl x5
-- Upright.stl x9
-- LightRingSupportUnit.stl x3
-- SupportRingToRingUpper.stl x1
-- SupportRingToMI.stl x1
+   - LightRing.stl x5
+   - LightShelf.stl x5
+   - Upright.stl x9
+   - LightRingSupportUnit.stl x3
+   - SupportRingToRingUpper.stl x1
+   - SupportRingToMI.stl x1
 
 
 ## Soldering and Assembling the LED rings
 
-Similar to ElmoC's guide, you will need to solder together five light rings into one light ring section, and repeat that process to create either three or four light ring sections, depending on your preference.
+As in ElmoC's guide, you will need to solder together five light rings into one light ring section, and repeat that process to create either three or four light ring sections, depending on your preference.
 
-If you order the same LED strip I linked above, then each light ring will use seven LEDs, and the central chamber will have 14 LEDs. You can use a scissors to cut the LED strip into these lengths.
+If you order the same LED strip from Amazon that I linked above, then each light ring will use seven LEDs, and the central chamber will have 14 LEDs. You can use a scissors to cut the LED strip into these lengths.
 
-Each individual LED strip requires 5V power, ground, and a Data In. In each set of five strips, the Data In (DI) comes from the PCB into the first strip, then daisy-chain the Data Out (DO) from the first strip into the Data In of the second strip, and so on. The fifth strip will not need a Data Out connection.
+Each individual LED strip requires connections for 5V power, ground, and Data In. In each set of five strips, the Data In (DI) comes from the PCB into the first strip, then daisy-chain the Data Out (DO) from the first strip into the Data In of the second strip, and so on. The fifth strip will not need a Data Out connection.
 
 It doesn't matter which end of the LED strip you connect 5V and ground, as power flows both ways. If you accidentally rip off a pad while soldering, you can even connect the 5V or ground to any of the other pads on that same strip. The only connections that **must** be at the start or end of the strips are the DI and DO. If you rip off one of those pads, you will need to cut a new strip for that ring.
 
-Soldering the LED ring light strips was challenging for me, due to the soldered wires frequently ripping the pads off the light strip ends. This was largely caused by my attempt to use the less-flexible solid core wire on all four connections on each strip. At some point I realized this heavier-duty wire wasn't necessary, and switched to using the 22-gauge stranded wires for each of the LED strip connections, which worked much better.
+Soldering the LED ring light strips was challenging for me, due to the soldered wires frequently ripping the pads off the light strip ends. This was largely caused by my attempt to use the less-flexible solid-core wire on all four connections on each strip. At some point I realized this heavier-duty wire wasn't necessary, and switched to using the 22-gauge stranded wires for each of the LED strip connections, which worked much better.
 
-The 5V and G wires I cut 1-2" and then soldered to a central wire for each, for which I used the solid core so it could safely conduct more electricity. I built up this central wire in 1-2" sections as I added each light ring on top of each other. I used 3-4" wires for the DO->DI connections, so in case I needed to pry apart the light rings later on, I'd have some wiggle room. This happened more times than I'd care to admit, after testing an assembled section of five rings and finding out there was a loose connection in the middle somewhere.
+For the 5V and G wires I cut 1-2" and then soldered to a central wire for each, for which I used the solid-core so it could safely conduct more electricity. I built up this central wire in 1-2" sections as I added each light ring on top of each other. I used 3-4" wires for the DO->DI connections, so in case I needed to pry apart the light rings later on, I'd have some wiggle room. This happened more times than I'd care to admit, after testing an assembled section of five rings and finding out there was a loose connection somewhere in the middle.
 
-I also used electrical tape over each connection to the 5V and G central wires, since my center 1/4" pole was conductive. Finally, I wrapped electrical tape over each end of each light strip prior to adhering the strip onto the light shelf, in order to help hold the wires/solder points in place when I bent the light strip to fit into the shelf's slot.
+I also used electrical tape over each connection to the 5V and G central wires, since my center 1/4" pole was conductive. Finally, I wrapped electrical tape over the solder points at each end of each light strip prior to adhering the strip onto the light shelf, in order to help hold the wires in place when I bent the light strip to fit into the shelf's slot.
 
 I've included close-up photos of all these steps on my Thingiverse post.
 
-One final "gotcha" I discovered is that when soldering the central wire connections, heat easily traveled back to the light strip solder pads and loosened those solder connections. That's likely what caused my frequent need to disassemble/reassemble. If you have a metal clip that you can clip onto the wires as a heat sink, that would probably help.
+One final "gotcha" I discovered is that when soldering the central wire connections, heat easily traveled back to the light strip solder pads and loosened those solder connections. That's likely what caused my frequent need to disassemble/reassemble. If you have a metal clip that you can clip onto the wires as a heat sink while you solder the central connections, that would probably help.
 
 
 ### Testing with an Arduino
@@ -184,8 +188,7 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 Follow these steps to install the NeoPixel library:
 https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library-installation
 
-Follow these steps to flash a basic strand test to your Arduino (I used the strandtest_wheel example sketch: File > Examples > AdaFruit NeoPixel > strandtest_wheel)
-https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library-use
+Follow these steps to flash a basic strand test to your Arduino: https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library-use (I used the strandtest_wheel example sketch: File > Examples > AdaFruit NeoPixel > strandtest_wheel)
 
 When connecting the strands, always plug in ground first. Typically, I plugged things in in this order, which might have been overly cautious:
 
@@ -204,14 +207,14 @@ Follow ElmoC's guide, with the following caveats:
 
 - Run the two USB cables from the PCB down through what would be the potentiometer knob hole in the base. **Be sure to mark which USB cable goes to which ESP32!** (ie, "Lights" and "Audio").
 
-- For the main power wires, I used 20-gauge solid core wires and ran them straight out the power socket hole in the base, and screwed them into to the power adapters's included plug-in connector.
+- For the main power wires, I used 20-gauge solid-core wires and ran them straight out the power socket hole in the base, and screwed them into to the power adapters's included plug-in connector.
 
 
 ## Brief overview of the ESP projects
 
-This section contains background information only, you do not need to execute any of these commands at this time.
+This section contains background information only, you do not need to execute any of these commands at this time. If, like my, you're coming into this project with no knowledge of ESP32s, I suggest skimming this section once now without expectation of getting much from it, and then referencing it later when it will make more sense.
 
-There are two project directories, one for each of the two ESP32 chips. The `warp_core` project is the main code that hosts the web GUI and controls the lighting. The `warp_core_audio` project controls the audio, including Bluetooth connections. Once powered on, the warp core will continuously scan for Bluetooth speakers in discover mode, and connect when it finds one. If the Bluetooth speaker is turned off, the ESP32 will resume playing sounds to the warp core's internal speaker (though the quality here is not great).
+There are two project directories, one for each of the two ESP32 chips. The `warp_core` project is the main code that hosts the web GUI and controls the lighting. The `warp_core_audio` project controls the audio, including Bluetooth connections. Once powered on, the warp core will continuously scan for Bluetooth speakers in discover mode, and connect when it finds one. If the Bluetooth speaker is turned off, the ESP32 will resume playing sounds to the warp core's internal speaker (though the quality from the tiny speaker is not great).
 
 Inside each of the two projects is a directory for the ESP's SPIFFS image (SPI Flash File System). These are located at `/components/spiffs_image/image/`. Any time that you modify files inside this directory, you will need to recreate the SPIFFS image (which gets built into `/build/spiffs_image.img`) and then re-flash the SPIFFS image to the ESP32. Both of these steps can be accomplished from a single `make flashfs`, which uses the commands from your project's `/components/spiffs_image/Makefile.projbuild` file. You shouldn't ever need to tweak that file, I'm just mentioning it for reference.
 
@@ -232,7 +235,7 @@ Lastly, just a note that to flash the PCB's ESP chips, you must have the 5V powe
 
 Setting up the ESP IDF (Espressif IoT Development Framework) is non-trivial. Once I finally had mine working, Dan's advice to me was, "That's awesome! Now don't change the build environment! It's mega fickle and wants you to fail because it's a monster."
 
-I’ll be the first to admit, my setup (outlined in detail below) feels very kludge-y. There is probably a much better/smoother/easier way of setting this up. But, after many hours spent troubleshooting and Googling, I’ve documented in meticulous detail what worked for me. I've also included a Troubleshooting document alongside this README that has detailed notes about over a dozen specific errors I encountered and how to resolve them.
+I’ll be the first to admit, my setup (outlined in detail below) feels very kludge-y. There is probably a much better/smoother/easier way of setting this up. But, after many hours spent troubleshooting and Googling, I’ve documented in meticulous detail what worked for me. I've also included a [Troubleshooting](Troubleshooting.md) document alongside this README that has detailed notes about over a dozen specific errors I encountered and how to resolve them.
 
 Note: my setup is on a Mac running macOS 10.12.6. You'll probably have to do some of your own platform-specific troubleshooting while installing the ESP IDF.
 
@@ -428,7 +431,7 @@ make flash monitor -j32
 
 If you are prompted with: `Autostart Arduino setup and loop on boot (AUTOSTART_ARDUINO) [N/y/?] (NEW)`, answer the default answers for all the questions.
 
-If you run into compile or flashing errors, consult the Troubleshooting document included alongside this README.
+If you run into compile or flashing errors, consult the [Troubleshooting](Troubleshooting.md) document included alongside this README.
 
 If all goes well, the compile will run for a few minutes and then you should start seeing serial console output from the ESP32. If you've already connected your PCB and light rings, the light rings should start pulsing.
 
@@ -446,7 +449,7 @@ That means your ESP isn’t connected to your wifi. Check your settings in `Conf
 
 At this point, you should be able to connect to your warp core via a web browser by entering the IP address from your Config.h. As you press buttons on the web interface, you will see the commands logged in the serial console output.
 
-If the web interface doesn't load, look for any errors in the console and consult the Troubleshooting document.
+If the web interface doesn't load, look for any errors in the console and consult the [Troubleshooting](Troubleshooting.md) document.
 
 
 ## Compile and flash the warp_core_audio project
@@ -475,9 +478,7 @@ make flashfs
 make flash monitor -j32
 ```
 
-If for some reason 
-
-If you see any of the following errors, consult the Troubleshooting document:
+If you see any of the following errors, consult the [Troubleshooting](Troubleshooting.md) document:
 ```
 SPIFFS: mount failed, -10025
 Wav: File too small (riffLen)
