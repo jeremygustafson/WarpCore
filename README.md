@@ -244,7 +244,8 @@ Dan's code is based on older versions of both ESP IDF and esp32_digital_led_lib.
 Lastly, you might notice all my file editing commands below use `vi`. If you're not familiar with `vi`, then I'd suggest using `nano` or `pico` instead.
 
 
-1. Follow these LEGACY instructions for installing ESP-IDF version 3.3.2:
+#### Follow these LEGACY instructions for installing ESP-IDF version 3.3.2
+
 https://docs.espressif.com/projects/esp-idf/en/v3.3.2/get-started/index.html
 
 It’s easy (I think) to miss steps on this page, because it frequently links to directions on other pages. Be sure not to skip the steps under “Setup Toolchain” and “Setup Path to ESP-IDF”.
@@ -268,13 +269,15 @@ If you’re on a Mac and need to update your Python to v3, see this page for hel
 I recommend attempting the ESP-IDF `hello_world` example, to make sure your build environment is working. This is where I used one of those optional ESP32 boards from Amazon, while I was waiting for my PCB and chips to arrive from China.
 
 
-2. Copy the downloaded warp core projects to your esp build folder, something like:
+#### Copy the downloaded warp core projects to your esp build folder
+
+Something like:
 
 ```
 cp -a ~/Downloads/Warp-Core-master/warp_core ~/Downloads/Warp-Core-master/warp_core_audio ~/esp/
 ```
 
-3. Download extra dependencies:
+#### Download extra dependencies
 
 ```
 cd ~/esp/warp_core/components/
