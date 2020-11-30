@@ -221,7 +221,8 @@ Make the same change in this file, too:
 
 
 ----------------------------------------
-### Issue: ```
+### Issue:
+```
 ~/esp/warp_core/components/arduino-esp32/libraries/WiFiClientSecure/src/ssl_client.cpp:23:4: error: #error "Please configure IDF framework to include mbedTLS -> Enable pre-shared-key ciphersuites and activate at least one cipher"
  #  error "Please configure IDF framework to include mbedTLS -> Enable pre-shared-key ciphersuites and activate at least one cipher"
     ^
