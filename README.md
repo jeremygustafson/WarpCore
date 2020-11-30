@@ -16,7 +16,7 @@ And finally, I owe a lot of thanks to my Dad, who went to school for electrical 
 
 At the risk of sounding like a middle school teacher, I highly recommend reading through all the directions before starting.
 
-**Warning: This is an advanced project.** You will need at least a rudimentary understanding of electronics and the command-line (whether you're running on Mac, Windows, or Linux). This build involves surface-mount soldering, a complex installation process of the ESP IDF, and potentially a lot of troubleshooting of the ESP code at compilation time. Dan mentioned that he needed to perform "unspeakable hackery to make it function," and that was also my experience. There is no GUI for any of this. I don't say that to scare anyone away, just to set expectations that you might/will spend a lot of time banging your head against a wall. But it's worth it.
+**Warning: This is an advanced project.** You will need at least a rudimentary understanding of electronics and the command-line (whether you're running on Mac, Windows, or Linux). This build involves surface-mount soldering, a complex installation process of the ESP-IDF, and potentially a lot of troubleshooting of the ESP code at compilation time. Dan mentioned that he needed to perform "unspeakable hackery to make it function," and that was also my experience. There is no GUI for any of this. I don't say that to scare anyone away, just to set expectations that you might/will spend a lot of time banging your head against a wall. But it's worth it.
 
 In Dan's words: "My warp core is a bit over-complicated because I wanted it to be an appliance you could just plug in and use, then unplug when done. So it uses 2(!!) ESP32s to overcome some wireless limitations and not suffer from any corruption issues like a Raspberry Pi would if you just yanked the power." 
 
@@ -233,18 +233,18 @@ Lastly, just a note that to flash the PCB's ESP chips, you must have the 5V powe
 
 ## Preparing to program the ESP32 chips
 
-Setting up the ESP IDF (Espressif IoT Development Framework) is non-trivial. Once I finally had mine working, Dan's advice to me was, "That's awesome! Now don't change the build environment! It's mega fickle and wants you to fail because it's a monster."
+Setting up the ESP-IDF (Espressif IoT Development Framework) is non-trivial. Once I finally had mine working, Dan's advice to me was, "That's awesome! Now don't change the build environment! It's mega fickle and wants you to fail because it's a monster."
 
 I’ll be the first to admit, my setup (outlined in detail below) feels very kludge-y. There is probably a much better/smoother/easier way of setting this up. But, after many hours spent troubleshooting and Googling, I’ve documented in meticulous detail what worked for me. I've also included a [Troubleshooting](Troubleshooting.md) document alongside this README that has detailed notes about over a dozen specific errors I encountered and how to resolve them.
 
-Note: my setup is on a Mac running macOS 10.12.6. You'll probably have to do some of your own platform-specific troubleshooting while installing the ESP IDF.
+Note: my setup is on a Mac running macOS 10.12.6. You'll probably have to do some of your own platform-specific troubleshooting while installing the ESP-IDF.
 
-Dan's code is based on older versions of both ESP IDF and esp32_digital_led_lib. I haven't taken time to update his code for the newer releases; if someone else wants to give that a try, please fork this project and share your results!
+Dan's code is based on older versions of both ESP-IDF and esp32_digital_led_lib. I haven't taken time to update his code for the newer releases; if someone else wants to give that a try, please fork this project and share your results!
 
 Lastly, you might notice all my file editing commands below use `vi`. If you're not familiar with `vi`, then I'd suggest using `nano` or `pico` instead.
 
 
-#### Follow these LEGACY instructions for installing ESP-IDF version 3.3.2
+#### 1. Follow these LEGACY instructions for installing ESP-IDF version 3.3.2
 
 https://docs.espressif.com/projects/esp-idf/en/v3.3.2/get-started/index.html
 
@@ -269,7 +269,7 @@ If you’re on a Mac and need to update your Python to v3, see this page for hel
 I recommend attempting the ESP-IDF `hello_world` example, to make sure your build environment is working. This is where I used one of those optional ESP32 boards from Amazon, while I was waiting for my PCB and chips to arrive from China.
 
 
-#### Copy the downloaded warp core projects to your esp build folder
+#### 2. Copy the downloaded warp core projects to your esp build folder
 
 Something like:
 
@@ -277,7 +277,7 @@ Something like:
 cp -a ~/Downloads/Warp-Core-master/warp_core ~/Downloads/Warp-Core-master/warp_core_audio ~/esp/
 ```
 
-#### Download extra dependencies
+#### 3. Download extra dependencies
 
 ```
 cd ~/esp/warp_core/components/
@@ -387,7 +387,7 @@ wget https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
 wget https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css.map
 ```
 
-### Set up the warp_core project in ESP IDF
+### Set up the warp_core project in ESP-IDF
 ```
 cd ~/esp/warp_core
 ```
@@ -440,7 +440,7 @@ If all goes well, the compile will run for a few minutes and then you should sta
 
 Look for this line in your serial console output:
 ```
-I (2809) wifi:connected with [YOUR SSID HERE]…
+I (2809) wifi:connected with [YOUR SSID HERE]
 ```
 
 Probably self-obvious but that means your warp core successfully connected to your wifi. If instead you see:
@@ -457,7 +457,7 @@ If the web interface doesn't load, look for any errors in the console and consul
 
 ## Compile and flash the warp_core_audio project
 
-### Set up the warp_core_audio project in ESP IDF
+### Set up the warp_core_audio project in ESP-IDF
 ```
 cd ~/esp/warp_core_audio
 ```
@@ -493,11 +493,11 @@ BT-Audio: initBtAudio enable controller failed: 258,
 ## Congratulations
 If you've made it this far, you are a real trooper! This is a complex project and you should feel proud of yourself for completing it!
 
-If you are interested in adding features or attempting to port the code to newer releases of the ESP IDF, have at it, and please share your results!
+If you are interested in adding features or attempting to port the code to newer releases of the ESP-IDF, have at it, and please share your results!
 
 A few ideas I had for future improvements include:
 - holiday-themed lighting effects (for instance, alternating rows of green-red for Christmas, or flag-colors for patriotic holidays)
 - setting a hostname and using DHCP instead of a static IP
 - fixing what might be a bug where setting a custom color disables the sound effects
-- upgrading code to work with the current ESP IDF
+- upgrading code to work with the current ESP-IDF
 - upgrading code to work with the newer esp32_digital_led_lib
