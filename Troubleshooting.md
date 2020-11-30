@@ -1,6 +1,6 @@
-# Warp Core ESP IDF Troubleshooting Notes
+# Warp Core ESP-IDF Troubleshooting Notes
 
-These are some troubleshooting notes I kept over several months battling the ESP IDF and trying to compile the warp core code. If you run into issues, hopefully something in here will be helpful.
+These are some troubleshooting notes I kept over several months battling the ESP-IDF and trying to compile the warp core code. If you run into issues, hopefully something in here will be helpful.
 
 **As a general rule:** when in doubt, `make clean` followed by `make flash` again.
 
@@ -16,8 +16,7 @@ make flash monitor -j32
 
 
 ----------------------------------------
-**Issue:**
-First attempt at `make flash monitor` gives this error:
+### Issue: First attempt at `make flash monitor` gives this error:
 ```
 ~/esp/warp_core/main/WebServer.cpp:11:16: fatal error: FS.h: No such file or directory
 ```
@@ -46,8 +45,7 @@ Make sure this file is present: `~/esp/warp_core/components/arduino/component.mk
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 ~/esp/warp_core/components/arduino/libraries/AsyncTCP-master/src/AsyncTCP.cpp:22:21: fatal error: Arduino.h: No such file or directory
 ```
@@ -63,8 +61,7 @@ cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/cores/esp32 ~/esp/
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 In file included from ~/esp/warp_core/components/arduino/cores/esp32/wiring_private.h:31:0,
                  from ~/esp/warp_core/components/arduino/cores/esp32/wiring_pulse.c:18:
@@ -73,16 +70,16 @@ In file included from ~/esp/warp_core/components/arduino/cores/esp32/wiring_priv
 ----------------------------------------
 
 **To resolve:**
+```
 mkdir ~/esp/warp_core/components/arduino/variants
 cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/variants/esp32 ~/esp/warp_core/components/arduino/variants
-
+```
 
 
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncEventSource.cpp:21:0:
 ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncEventSource.h:28:25: fatal error: ESPAsyncTCP.h: No such file or directory
@@ -105,8 +102,7 @@ NOTE: The above step isn’t actually needed after everything else is done. Docu
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncEventSource.h:32:0,
                  from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncEventSource.cpp:21:
@@ -124,8 +120,7 @@ cp -a ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/libraries/WiFi ~/e
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 In file included from ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncWebSocket.cpp:22:0:
 ~/esp/warp_core/components/arduino/libraries/ESPAsyncWebServer/src/AsyncWebSocket.h:29:25: fatal error: ESPAsyncTCP.h: No such file or directory
@@ -149,8 +144,7 @@ And then the earlier-mentioned steps in the README that modify files in that dir
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 ~/esp/warp_core/components/arduino-esp32/libraries/AzureIoT/src/az_iot/iothub_client/src/iothubtransport_mqtt_common.c:1058:32: error: 'request_id' may be used uninitialized in this function [-Werror=maybe-uninitialized]
                              if (request_id == msg_entry->packet_id)
@@ -168,8 +162,7 @@ make flash monitor
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 In file included from ~/esp/esp-idf/components/wifi_provisioning/include/wifi_provisioning/scheme_ble.h:18:0,
                  from ~/esp/warp_core/components/arduino/libraries/WiFi/src/WiFiProv.h:21,
@@ -194,8 +187,7 @@ In file included from ~/esp/esp-idf/components/wifi_provisioning/include/wifi_pr
 
 
 ----------------------------------------
-**Issue:**
-Next attempt at `make flash monitor` gives this error:
+### Issue: Next attempt at `make flash monitor` gives this error:
 ```
 ~/esp/warp_core/components/arduino-esp32/libraries/WiFi/src/ETH.cpp:196:37: error: conversion from 'const ip_addr_t* {aka const ip_addr*}' to non-scalar type 'ip_addr_t {aka ip_addr}' requested
      ip_addr_t dns_ip = dns_getserver(dns_no);
@@ -229,8 +221,7 @@ Make the same change in this file, too:
 
 
 ----------------------------------------
-**Issue:**
-```
+### Issue: ```
 ~/esp/warp_core/components/arduino-esp32/libraries/WiFiClientSecure/src/ssl_client.cpp:23:4: error: #error "Please configure IDF framework to include mbedTLS -> Enable pre-shared-key ciphersuites and activate at least one cipher"
  #  error "Please configure IDF framework to include mbedTLS -> Enable pre-shared-key ciphersuites and activate at least one cipher"
     ^
@@ -252,8 +243,7 @@ Component config -> mbedTLS -> TLS Key Exchange Methods -> [*] Enable pre-shared
 
 
 ----------------------------------------
-**Issue:**
-After `make flashfs` and `make flash monitor`, the warp_core web page GUI doesn't load in web browser
+### Issue: After `make flashfs` and `make flash monitor`, the warp_core web page GUI doesn't load in web browser
 ----------------------------------------
 
 **To resolve:**
@@ -266,8 +256,7 @@ This seemed to be caused by missing an extra flag when compiling mkspiffs. Be su
 
 
 --------------------
-**Issue:**
-When trying to flash, you get this (or similar) error:
+### Issue: When trying to flash, you get this (or similar) error:
 ```
 [Errno 16] could not open port /dev/tty.SLAB_USBtoUART
 ```
@@ -281,8 +270,7 @@ Reboot your computer. I couldn't find any other way around it.
 
 
 --------------------
-**Issue:**
-When trying to flash, you get this error:
+### Issue: When trying to flash, you get this error:
 ```
 A fatal error occurred: Timed out waiting for packet header
 make: *** [flash] Error 2
@@ -298,8 +286,7 @@ Try the `make flash monitor` again. If it fails again, you might need to use the
 
 
 --------------------
-**Issue:**
-When doing a `make flash`, you see an error scroll by like below, and the compile aborts before flashing the ESP chip.
+### Issue: When doing a `make flash`, you see an error scroll by like below, and the compile aborts before flashing the ESP chip.
 ```
 make[1]: *** No rule to make target `cores/esp32/libb64/cencode.o', needed by `libarduino-esp32.a'.  Stop.
 make[1]: *** Waiting for unfinished jobs....
@@ -317,8 +304,7 @@ The specific example copied above appeared to be a weird race condition due to t
 
 
 --------------------
-**Issue:**
-ESP monitoring shows this error:
+### Issue: ESP monitoring shows this error:
 ```
 E (586) SPIFFS: mount failed, -10025
 [E][SPIFFS.cpp:89] begin(): Mounting SPIFFS failed! Error: -1
@@ -343,8 +329,7 @@ Save, then also double check this value is 4096: `make menuconfig` > "SPIffs Exa
 
 
 --------------------
-**Issue:**
-How to unpack a spiffs image locally
+### Issue: How to unpack a spiffs image locally
 --------------------
 
 **To resolve:**
@@ -357,8 +342,7 @@ How to unpack a spiffs image locally
 
 
 --------------------
-**Issue:**
-SPIFFS files not showing up, or, getting error "Wav: File too small (riffLen)"
+### Issue: SPIFFS files not showing up, or, getting error "Wav: File too small (riffLen)"
 --------------------
 
 **To resolve:**
@@ -404,8 +388,7 @@ Then `make flash monitor` and examine the output.
 
 
 --------------------
-**Issue:**
-ESP monitoring shows this error:
+### Issue: ESP monitoring shows this error:
 ```
 :E (3742) Audio: wavFile is NULL. Error code: 2 : No such file or directory
 ```
@@ -443,8 +426,7 @@ Then edit the 5 file paths inside `~esp/warp_core_audio/main/AudioHandler.cpp` a
 
 
 --------------------
-**Issue:**
-ESP monitoring shows this error:
+### Issue: ESP monitoring shows this error:
 ```
 E (1621) BT-Audio: initBtAudio enable controller failed: 258,
 ```
